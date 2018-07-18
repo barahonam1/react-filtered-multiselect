@@ -12,7 +12,7 @@ function makeLookup(arr, prop) {
     }
   }
   return lkup
-}
+} 
 
 function getItemsByProp(arr, prop, values) {
   let items = []
