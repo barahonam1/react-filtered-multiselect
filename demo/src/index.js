@@ -48,6 +48,7 @@ class BasicSelection extends React.Component {
         <p className="help-block">Press Enter when there's only one matching item to select it.</p>
       </div>
       <div className="col-md-5">
+      
         {selectedOptions.length === 0 && <p>(nothing selected yet)</p>}
         {selectedOptions.length > 0 && <ol>
           {selectedOptions.map((ship, i) => <li key={ship.id}>
@@ -60,6 +61,8 @@ class BasicSelection extends React.Component {
         {selectedOptions.length > 0 && <button style={{marginLeft: 20}} className="btn btn-default" onClick={this.handleClearSelection}>
           Clear Selection
         </button>}
+
+        
       </div>
     </div>
   }

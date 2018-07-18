@@ -17,7 +17,8 @@
     "test": "npm run lint"
   },
   "dependencies": {
-    "prop-types": "^15.5.7"
+    "prop-types": "^15.5.7",
+    "react-custom-scrollbars": "^4.2.1"
   },
   "peerDependencies": {
     "react": ">=0.14.9"

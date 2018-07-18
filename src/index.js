@@ -1,5 +1,6 @@
-import t from 'prop-types'
-import React from 'react'
+import t from 'prop-types';
+import React from 'react';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 function makeLookup(arr, prop) {
   let lkup = {}
@@ -66,6 +67,9 @@ class FilteredMultiSelect extends React.Component {
     size: 6,
     textProp: 'text',
     valueProp: 'value',
+    custom:false,
+    height:400,
+    removeIcon: false
   }
 
   constructor(props) {
@@ -160,18 +164,24 @@ class FilteredMultiSelect extends React.Component {
   }
 
   _updateSelectedValues = (e) => {
-    let el = e ? e.target : this._select
-    let selectedValues = []
-    for (let i = 0, l = el.options.length; i < l; i++) {
-      if (el.options[i].selected) {
-        selectedValues.push(el.options[i].value)
+
+    if(!this.props.custom) {
+      console.log('select has changed....');
+
+      let el = e ? e.target : this._select
+      let selectedValues = []
+      for (let i = 0, l = el.options.length; i < l; i++) {
+        if (el.options[i].selected) {
+          selectedValues.push(el.options[i].value)
+        }
+      }
+      // Always update if we were handling an event, otherwise only update if
+      // selectedValues has actually changed.
+      if (e || String(this.state.selectedValues) !== String(selectedValues)) {
+        this.setState({selectedValues})
       }
     }
-    // Always update if we were handling an event, otherwise only update if
-    // selectedValues has actually changed.
-    if (e || String(this.state.selectedValues) !== String(selectedValues)) {
-      this.setState({selectedValues})
-    }
+
   }
 
   /**
@@ -182,16 +192,37 @@ class FilteredMultiSelect extends React.Component {
     let selectedOptions =
       this.props.selectedOptions.concat(getItemsByProp(this.state.filteredOptions,
                                                        this.props.valueProp,
-                                                       this.state.selectedValues))
+                                                       this.state.selectedValues));
+
+      
+    console.log('this.state.filteredOptions', this.state.filteredOptions);
+    console.log('this.state.selectedValues: ', this.state.selectedValues);
+    console.log('selectedOptions: ', JSON.stringify(selectedOptions));
+
     this.setState({selectedValues: []}, () => {
       this.props.onChange(selectedOptions)
     })
   }
 
+  _addToSelection = (e) => {
+
+    let selectedOptions = this.props.selectedOptions.concat(getItemsByProp(this.state.filteredOptions,
+                                                     this.props.valueProp,
+                                                     [e.target.getAttribute('value')]));
+
+    this.setState({selectedValues: []}, () => {
+      this.props.onChange(selectedOptions)
+    });                                                     
+
+  }
+
   render() {
-    let {filter, filteredOptions, selectedValues} = this.state
-    let {className, disabled, placeholder, showFilter, size, textProp, valueProp} = this.props
-    let hasSelectedOptions = selectedValues.length > 0
+
+    let {filter, filteredOptions, selectedValues} = this.state;
+    let {className, disabled, placeholder, showFilter, size, textProp, valueProp, custom, height, removeIcon} = this.props;
+  
+
+
     return <div className={className}>
       {showFilter && <input
         type="text"
@@ -202,24 +233,48 @@ class FilteredMultiSelect extends React.Component {
         onKeyPress={this._onFilterKeyPress}
         disabled={disabled}
       />}
-      <select multiple
-        ref={this._selectRef}
-        className={this._getClassName('select')}
-        size={size}
-        value={selectedValues}
-        onChange={this._updateSelectedValues}
-        onDoubleClick={this._addSelectedToSelection}
-        disabled={disabled}>
-        {filteredOptions.map((option) => {
-          return <option key={option[valueProp]} value={option[valueProp]}>{option[textProp]}</option>
+
+
+      {custom ?     
+
+        <Scrollbars style={{ height: height }}>
+          {<ul ref={this._selectRef} className={this._getClassName('select')} size={size} style={{listStyle:'none'}}>
+          {filteredOptions.map((option) => {
+          return <li 
+                  key={option[valueProp]}>{option[textProp]}  
+                    <span style={{cursor: 'pointer'}} onClick={this._addToSelection} value={option[valueProp]}>
+                    {removeIcon ? `×` : `+` }</span>
+                 </li>
         })}
-      </select>
-      <button type="button"
-        className={this._getClassName('button', hasSelectedOptions && 'buttonActive')}
-        disabled={!hasSelectedOptions}
-        onClick={this._addSelectedToSelection}>
-        {this.props.buttonText}
-      </button>
+          </ul>}
+        </Scrollbars> :       
+        
+        <div>
+          <select multiple
+              ref={this._selectRef}
+              className={this._getClassName('select')}
+              size={size}
+              value={selectedValues}
+              onChange={this._updateSelectedValues}
+              onDoubleClick={this._addSelectedToSelection}
+              disabled={disabled}>
+              {filteredOptions.map((option) => {
+                return <option key={option[valueProp]} value={option[valueProp]}>{option[textProp]}</option>
+              })}
+          </select>
+
+          <button type="button"
+            className={this._getClassName('button', (selectedValues.length > 0) && 'buttonActive')}
+            disabled={!(selectedValues.length > 0)}
+            onClick={this._addSelectedToSelection}>
+            {this.props.buttonText}
+          </button>
+
+        </div>
+
+      }
+      
+
     </div>
   }
 }
