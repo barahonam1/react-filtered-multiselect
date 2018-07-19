@@ -85,6 +85,14 @@ class AddRemoveSelection extends React.Component {
     this.setState({selectedOptions})
   }
 
+  handleSelectAll = () => {
+    console.log('reaching handleSelectAll');
+  }
+
+  handleRemoveAll = () => {
+    console.log('reaching handleRemoveAll');
+  }
+
   render() {
     var {selectedOptions} = this.state
     return <div className="row">
@@ -97,6 +105,8 @@ class AddRemoveSelection extends React.Component {
           selectedOptions={selectedOptions}
           textProp="name"
           valueProp="id"
+          custom={true}
+          addAll={this.handleSelectAll}
         />
       </div>
       <div className="col-md-5">
@@ -112,6 +122,9 @@ class AddRemoveSelection extends React.Component {
           options={selectedOptions}
           textProp="name"
           valueProp="id"
+          custom={true}
+          removeIcon={true}
+          removeAll={this.handleRemoveAll}
         />
       </div>
     </div>

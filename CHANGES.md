@@ -1,3 +1,11 @@
+# 0.5.3 / 2018-07-18
+
+Improvements in Custom multiselect
+
+# 0.5.2 / 2018-07-18
+
+Custom multiselect
+
 # 0.5.1 / 2017-11-21
 
 Added a `showFilter` prop to hide the filter input if you just want to use this component for selection [[#15](https://github.com/insin/react-filtered-multiselect/issues/15)]

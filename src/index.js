@@ -53,6 +53,9 @@ class FilteredMultiSelect extends React.Component {
     size: t.number,
     textProp: t.string,
     valueProp: t.string,
+    custom:t.bool,
+    height:t.number,
+    removeIcon: t.bool,
   }
 
   static defaultProps = {
@@ -69,7 +72,9 @@ class FilteredMultiSelect extends React.Component {
     valueProp: 'value',
     custom:false,
     height:400,
-    removeIcon: false
+    removeIcon: false,
+    addAll: false,
+    removeAll:false
   }
 
   constructor(props) {
@@ -219,24 +224,38 @@ class FilteredMultiSelect extends React.Component {
   render() {
 
     let {filter, filteredOptions, selectedValues} = this.state;
-    let {className, disabled, placeholder, showFilter, size, textProp, valueProp, custom, height, removeIcon} = this.props;
+    let {className, disabled, placeholder, showFilter, size, textProp, valueProp, custom, height, removeIcon, addAll, removeAll} = this.props;
   
 
 
     return <div className={className}>
-      {showFilter && <input
-        type="text"
-        className={this._getClassName('filter')}
-        placeholder={placeholder}
-        value={filter}
-        onChange={this._onFilterChange}
-        onKeyPress={this._onFilterKeyPress}
-        disabled={disabled}
+
+      <div>
+
+      {showFilter && 
+        <input
+          type="text"
+          className={this._getClassName('filter')}
+          placeholder={placeholder}
+          value={filter}
+          onChange={this._onFilterChange}
+          onKeyPress={this._onFilterKeyPress}
+          disabled={disabled}
       />}
+
+      {addAll && {}.toString.call(addAll) === '[object Function]' &&
+        <a href="javascript:void(0)" onClick={addAll} className="addAll">Add All</a>  
+      }
+
+      {removeAll && {}.toString.call(removeAll) === '[object Function]' &&
+        <a href="javascript:void(0)" onClick={removeAll} className="removeAll">Remove All</a>  
+      }
+
+      </div>
 
 
       {custom ?     
-
+        <div>
         <Scrollbars style={{ height: height }}>
           {<ul ref={this._selectRef} className={this._getClassName('select')} size={size} style={{listStyle:'none'}}>
           {filteredOptions.map((option) => {
@@ -247,7 +266,10 @@ class FilteredMultiSelect extends React.Component {
                  </li>
         })}
           </ul>}
-        </Scrollbars> :       
+        </Scrollbars> 
+        </div>
+        
+        :       
         
         <div>
           <select multiple
