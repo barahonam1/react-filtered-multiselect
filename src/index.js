@@ -41,7 +41,6 @@ class FilteredMultiSelect extends React.Component {
   static propTypes = {
     onChange: t.func.isRequired,
     options: t.array.isRequired,
-
     buttonText: t.string,
     className: t.string,
     classNames: t.object,
@@ -56,6 +55,8 @@ class FilteredMultiSelect extends React.Component {
     custom:t.bool,
     height:t.number,
     removeIcon: t.bool,
+    addAll: t.func,
+    removeAll: t.func
   }
 
   static defaultProps = {
@@ -73,8 +74,6 @@ class FilteredMultiSelect extends React.Component {
     custom:false,
     height:400,
     removeIcon: false,
-    addAll: false,
-    removeAll:false
   }
 
   constructor(props) {
@@ -224,7 +223,7 @@ class FilteredMultiSelect extends React.Component {
   render() {
 
     let {filter, filteredOptions, selectedValues} = this.state;
-    let {className, disabled, placeholder, showFilter, size, textProp, valueProp, custom, height, removeIcon, addAll, removeAll} = this.props;
+    let {className, disabled, placeholder, showFilter, size, textProp, valueProp, custom, height, removeIcon} = this.props;
   
 
 
@@ -243,12 +242,12 @@ class FilteredMultiSelect extends React.Component {
           disabled={disabled}
       />}
 
-      {addAll && {}.toString.call(addAll) === '[object Function]' &&
-        <a href="javascript:void(0)" onClick={addAll} className="addAll">Add All</a>  
+      {typeof this.props.addAll !== typeof undefined &&
+        <a href="javascript:void(0)" onClick={this.props.addAll} className="addAll">Add All</a>  
       }
 
-      {removeAll && {}.toString.call(removeAll) === '[object Function]' &&
-        <a href="javascript:void(0)" onClick={removeAll} className="removeAll">Remove All</a>  
+      {typeof this.props.removeAll !== typeof undefined &&
+        <a href="javascript:void(0)" onClick={this.props.removeAll} className="removeAll">Remove All</a>  
       }
 
       </div>
