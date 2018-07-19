@@ -1,6 +1,6 @@
 {
   "name": "custom-react-filtered-multiselect",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "Filtered multi-select React component",
   "main": "lib/index.js",
   "module": "es/index.js",
