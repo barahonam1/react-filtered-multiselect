@@ -105,6 +105,11 @@ the `value` for its `<option>`.
 
 `custom` - pass true if you wish to style each list item. By default each list item will display a plus sign to add the item. If the `removeIcon` prop has been set to true then an x will display.
 
+`addAllText` - text for adding all items. It will display "Show all" by default.
+
+`removeAllText` - text for removing all items. It will display "Remove all" by default.
+
+
 ### Default props
 
 ```js
@@ -126,6 +131,7 @@ the `value` for its `<option>`.
   size: 6,
   textProp: 'text',
   valueProp: 'value',
+  removeIcon: false,
   custom: false
 }
 ```
