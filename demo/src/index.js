@@ -105,6 +105,7 @@ class AddRemoveSelection extends React.Component {
           selectedOptions={selectedOptions}
           textProp="name"
           valueProp="id"
+          addAllText="Add all"
           custom={true}
           addAll={this.handleSelectAll}
         />
@@ -122,6 +123,7 @@ class AddRemoveSelection extends React.Component {
           options={selectedOptions}
           textProp="name"
           valueProp="id"
+          removeAllText="Remove all"
           custom={true}
           removeIcon={true}
           removeAll={this.handleRemoveAll}
