@@ -132,7 +132,9 @@ the `value` for its `<option>`.
   textProp: 'text',
   valueProp: 'value',
   removeIcon: false,
-  custom: false
+  custom: false,
+  addAllText: 'Add all',
+  removeAllText: 'Remove all' 
 }
 ```
 
