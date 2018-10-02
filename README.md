@@ -101,6 +101,10 @@ the displayed text for its `<option>`.
 `valueProp` - name of the property in each object in `options` which provides
 the `value` for its `<option>`.
 
+`removeIcon` - pass true to display an x next to the list item.
+
+`custom` - pass true if you wish to style each list item. By default each list item will display a plus sign to add the item. If the `removeIcon` prop has been set to true then an x will display.
+
 ### Default props
 
 ```js
@@ -121,7 +125,8 @@ the `value` for its `<option>`.
   showFilter: true,
   size: 6,
   textProp: 'text',
-  valueProp: 'value'
+  valueProp: 'value',
+  custom: false
 }
 ```
 
