@@ -52,6 +52,8 @@ class FilteredMultiSelect extends React.Component {
     size: t.number,
     textProp: t.string,
     valueProp: t.string,
+    addAllText: t.string,
+    removeAllText:t.string,
     custom:t.bool,
     height:t.number,
     removeIcon: t.bool,
@@ -71,6 +73,8 @@ class FilteredMultiSelect extends React.Component {
     size: 6,
     textProp: 'text',
     valueProp: 'value',
+    addAllText: 'Add all',
+    removeAllText:'Remove all',
     custom:false,
     height:400,
     removeIcon: false,
@@ -243,11 +247,11 @@ class FilteredMultiSelect extends React.Component {
       />}
 
       {typeof this.props.addAll !== typeof undefined &&
-        <a href="javascript:void(0)" onClick={this.props.addAll} className="addAll">Add All</a>  
+        <a href="javascript:void(0)" onClick={this.props.addAll} className="addAll">{this.props.addAllText}</a>  
       }
 
       {typeof this.props.removeAll !== typeof undefined &&
-        <a href="javascript:void(0)" onClick={this.props.removeAll} className="removeAll">Remove All</a>  
+        <a href="javascript:void(0)" onClick={this.props.removeAll} className="removeAll">{this.props.removeAllText}</a>  
       }
 
       </div>
