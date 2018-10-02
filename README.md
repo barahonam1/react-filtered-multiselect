@@ -179,5 +179,5 @@ class Example extends React.Component {
 [build-badge]: https://img.shields.io/travis/insin/react-filtered-multiselect/master.png?style=flat-square
 [build]: https://travis-ci.org/insin/react-filtered-multiselect
 
-[npm-badge]: https://img.shields.io/npm/v/react-filtered-multiselect.png?style=flat-square
-[npm]: https://www.npmjs.org/package/react-filtered-multiselect
+[npm-badge]: https://img.shields.io/npm/v/custom-react-filtered-multiselect.png?style=flat-square
+[npm]: https://www.npmjs.com/package/custom-react-filtered-multiselect
